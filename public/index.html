@@ -26,8 +26,7 @@
         return xhr;
       };
 
-      //var xhr = createCORSRequest("POST", 'http://api-dummy.blackbeans.io/posts');
-      var xhr = createCORSRequest("POST", 'http://cors-test.blackbeans.ch/posts');
+      var xhr = createCORSRequest("POST", 'http://api-dummy.blackbeans.io/posts');
 
       xhr.send(JSON.stringify({ body: 'foo', title: 'blah' }));
     });
