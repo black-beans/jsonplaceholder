@@ -6,6 +6,7 @@
   </head>
   <body>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script>
     $(document).ready(function(){
 
       getXMLHttpRequest = function() {
@@ -33,5 +34,6 @@
       xhr.setRequestHeader("Content-type", "application/json");
       xhr.send(JSON.stringify({ body: 'foo', title: 'blah' });
     });
+    </script>
   </body>
 </html>
