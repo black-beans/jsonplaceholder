@@ -9,29 +9,25 @@
     <script>
     $(document).ready(function(){
 
-      getXMLHttpRequest = function() {
-        var activeXVersions =  ["Msxml2.DOMDocument.6.0","Msxml2.DOMDocument.3.0","Msxml2.XMLHTTP","Microsoft.XMLHTTP"];
-
-        try {
-          return new XMLHttpRequest();
-        } catch (e) {
-          for (var i=0; i < activeXVersions.length; i++) {
-            try {
-              return new ActiveXObject(activeXVersions[i]);
-            } catch (a) {}
-          }
+      var createCORSRequest = function(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+          // Most browsers.
+          xhr.open(method, url, true);
+          xhr.setRequestHeader("Content-type", "application/json");
+        } else if (typeof XDomainRequest != "undefined") {
+          // IE8 & IE9
+          xhr = new XDomainRequest();
+          xhr.open(method, url);
+        } else {
+          // CORS not supported.
+          xhr = null;
         }
-        return null;
+        return xhr;
       };
 
-      xhr = getXMLHttpRequest();
-      if (xhr === null) {
-        console.log("XMLHttpRequest not available");
-        return;
-      }
+      var xhr = createCORSRequest("POST", 'http://api-dummy.blackbeans.io/posts');
 
-      xhr.open("POST", 'http://api-dummy.blackbeans.io/posts', true);
-      xhr.setRequestHeader("Content-type", "application/json");
       xhr.send(JSON.stringify({ body: 'foo', title: 'blah' }));
     });
     </script>
