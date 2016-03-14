@@ -8,8 +8,7 @@ var app = jsonServer.create()
 var router = jsonServer.router(clone(data))
 
 app.all('*', function(req, res, next) {
-  console.log(req)
-  console.log('foo')
+  console.log(req.headers)
   router.db.object = clone(data)
   next()
 })
